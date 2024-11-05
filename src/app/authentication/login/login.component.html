@@ -1,0 +1,74 @@
+<!-- <div class="main__container">
+    <div class="login-card">
+        <main class="login-content">
+            <span class="login-header">Login</span>
+            // login form
+
+            <form class="login-form" (ngSubmit)="login($event)" #loginForm="ngForm">
+                <input ngModel type="email" placeholder="Email" name="email" class="login-input" required />
+                <input ngModel type="password" placeholder="Password" name="password" class="login-input" minlength="6"
+                    required />
+                <input type="submit" name="submit" value="Login" class="login-btn"
+                    [class.btn-disabled]="!loginForm.form.valid" [disabled]="!loginForm.form.valid" />
+            </form>
+            <div class="signup-link-wrapper">
+                <span class="signup-notice">Don't have an account?</span>
+                <a class="signup-link" routerLink="/signup">Sign up</a>
+            </div>
+        </main>
+
+        // linking to signup
+        <aside class="login-aside">
+            <div class="login-aside-overlay"></div>
+            <h1 class="login-welcome-text">Welcome Back!</h1>
+            <hr class="login-aside-hr" />
+        </aside>
+    </div>
+</div> -->
+
+<!-- <app-error [message]="errorMessage"></app-error> -->
+
+<div class="main__container">
+    <div [ngClass]="{ 'login-card-dark': darkMode$ | async }" class="login-card">
+        <main class="login-content">
+            <span class="login-header">Login</span>
+            <!-- Login form -->
+            <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm">
+                <input formControlName="email" type="email" placeholder="Email" class="login-input" required />
+                <div *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched"
+                    class="error-message">
+                    <small *ngIf="loginForm.controls['email']?.errors?.['required']">Email is required.</small>
+                    <small *ngIf="loginForm.controls['email']?.errors?.['email']">Invalid email format.</small>
+                </div>
+
+                <input formControlName="password" type="password" placeholder="Password" class="login-input"
+                    minlength="6" required />
+                <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched"
+                    class="error-message">
+                    <small *ngIf="loginForm.controls['password']?.errors?.['required']">Password is required.</small>
+                    <small *ngIf="loginForm.controls['password']?.errors?.['minlength']">Password must be at least 6
+                        characters.</small>
+                </div>
+
+                <input type="submit" value="Login" class="login-btn" [class.btn-disabled]="!loginForm.valid"
+                    [disabled]="!loginForm.valid" />
+            </form>
+            <div class="signup-link-wrapper">
+                <span class="signup-notice">Don't have an account?</span>
+                <a class="signup-link" routerLink="/signup">Sign up</a>
+            </div>
+        </main>
+
+        <!-- Linking to signup -->
+        <aside class="login-aside">
+            <div class="login-aside-overlay"></div>
+            <h1 class="login-welcome-text">Welcome Back!</h1>
+            <hr class="login-aside-hr" />
+        </aside>
+    </div>
+
+    <!-- Error message display -->
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+</div>
